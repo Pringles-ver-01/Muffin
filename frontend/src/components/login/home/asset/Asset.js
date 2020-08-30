@@ -4,14 +4,13 @@ import { AssetContext } from "../../../../context";
 import axios from "axios";
 
 const Asset = () => {
-  const { asset, setAsset } = useContext(AssetContext);
   const [userAsset, setUserAsset] = useState(0);
   const [userProfit, setUserProfit] = useState(0);
   const [userProfitRatio, setUserProfitRatio] = useState(0);
   const [plusOrMinus, setPlusOrMinus] = useState("blue");
   let today = new Date();
 
-  useEffect(() => {
+  /*  useEffect(() => {
     axios
       .get(
         `http://localhost:8080/assets/holdingCount/${
@@ -19,21 +18,36 @@ const Asset = () => {
         }`
       )
       .then((response) => {
+        console.log(`야 이게 뭐냐 ${response.data.holdingCount[0]}`);
         setAsset(response.data.holdingCount[0]);
+        console.log(`2 : ${asset}`);
       })
       .catch((error) => {
         throw error;
       });
-  }, []);
+  }, []); */
 
   useEffect(() => {
-    setUserAsset(asset.totalAsset);
-    setUserProfit(asset.totalProfit);
-    setUserProfitRatio(asset.totalProfitRatio);
-    if (asset.totalProfit >= 0) {
-      setPlusOrMinus("red");
-    }
-  }, [asset]);
+    axios
+      .get(
+        `http://localhost:8080/assets/myAsset/${
+          JSON.parse(sessionStorage.getItem("logined_user")).userId
+        }`
+      )
+      .then((response) => {
+        setUserAsset(response.data.totalAsset);
+        setUserProfit(response.data.profitLoss);
+        setUserProfitRatio(response.data.profitRatio);
+        if (response.data.profitLoss > 0) {
+          setPlusOrMinus("red");
+        } else if (response.data.profitLoss === 0) {
+          setPlusOrMinus("black");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div>
@@ -50,7 +64,7 @@ const Asset = () => {
       <div>
         <div className="my_asset_title">
           <span className="won, my_asset_title">평가 수익률 : </span>
-          <span className="won, my_money">
+          <span className="won, my_money_profit">
             <span className={plusOrMinus}>
               {String(userProfitRatio).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} %
             </span>
@@ -59,7 +73,7 @@ const Asset = () => {
 
         <div className="my_asset_title">
           <span className="won, my_asset_title">평가 손익 : </span>
-          <span className="won, my_money">
+          <span className="won, my_money_profit">
             <span className={plusOrMinus}>
               {String(userProfit).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원
             </span>

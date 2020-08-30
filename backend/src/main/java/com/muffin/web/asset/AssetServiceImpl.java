@@ -21,6 +21,8 @@ import java.util.*;
 
 interface AssetService extends GenericService<Asset> {
 
+    TransactionLogVO myPortfolio(Long userId);
+
     public void readCSV();  // csv 파일 읽기
 
 //    List<TransactionLogVO> transacList(Long userId);
@@ -59,6 +61,22 @@ public class AssetServiceImpl implements AssetService {
     private final TransactionRepository transactionRepository;
     private Box box;
 
+
+    @Override
+    public TransactionLogVO myPortfolio(Long userId) {
+        TransactionLogVO vo = new TransactionLogVO();
+        List<Transaction> recent = transactionRepository.recent(userId);
+        if(recent.size() == 1) {
+            vo.setTotalAsset(recent.get(0).getTotalAsset());
+            vo.setProfitLoss(0);
+            vo.setProfitRatio(0);
+        } else {
+            vo.setTotalAsset(recent.get(0).getTotalAsset());
+            vo.setProfitLoss(recent.get(0).getTotalAsset()-recent.get(1).getTotalAsset());
+            vo.setProfitRatio((double)(vo.getProfitLoss()/recent.get(1).getTotalAsset()));
+        }
+        return vo;
+    }
 
     @Override
     public void readCSV() {
@@ -140,6 +158,7 @@ public class AssetServiceImpl implements AssetService {
     public List<TransactionLogVO> getOnesHoldings(Long userId) {
         List<TransactionLogVO> result = new ArrayList<>();
         List<Asset> list = repository.findOnesAllAsset(userId);
+        System.out.println("list : " + list);
         TransactionLogVO vo = null;
 
         for (Asset l : list) {
@@ -224,8 +243,6 @@ public class AssetServiceImpl implements AssetService {
         asset.setTotalAsset(newAmount);
         asset.setTotalProfit(totalProfit);
         asset.setTotalProfitRatio(totalProfitRatio);
-        System.out.println(invoice.getStockName());
-        System.out.println(stockRepository.findByStockName(invoice.getStockName()).get());
         asset.setStock(stockRepository.findByStockName(invoice.getStockName()).get());
         asset.setUser(userRepository.findById(invoice.getUserId()).get());
         transactionRepository.save(new Transaction(invoice.getStockName(), buyAmount, invoice.getTransactionDate(), invoice.getTransactionType(),

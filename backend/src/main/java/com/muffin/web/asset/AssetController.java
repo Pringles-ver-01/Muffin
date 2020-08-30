@@ -58,6 +58,11 @@ public class AssetController {
         return box.get();
     }
 
+    @GetMapping("/myAsset/{userId}")
+    public TransactionLogVO myPortfolio(@PathVariable Long userId){
+        return assetService.myPortfolio(userId);
+    }
+
     @GetMapping("/holdingCount/{userId}")
     public HashMap getHoling(@PathVariable Long userId) {
         box.clear();
