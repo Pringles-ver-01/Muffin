@@ -5,8 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface StockRepository extends JpaRepository<Stock, Long>, IStockRepository {
 
-
-    public Stock findByStockName(String stockName);
+    Stock findByStockName(String stockName);
 }
 
 

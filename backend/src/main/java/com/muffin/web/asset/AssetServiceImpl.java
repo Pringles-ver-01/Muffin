@@ -241,6 +241,8 @@ public class AssetServiceImpl implements AssetService {
         asset.setTotalAsset(newAmount);
         asset.setTotalProfit(totalProfit);
         asset.setTotalProfitRatio(totalProfitRatio);
+        System.out.println(invoice.getStockName());
+        System.out.println(stockRepository.findByStockName(invoice.getStockName())==null);
         System.out.println(stockRepository.findByStockName(invoice.getStockName()));
         asset.setStock(stockRepository.findByStockName(invoice.getStockName()));
         asset.setUser(userRepository.findById(invoice.getUserId()).get());

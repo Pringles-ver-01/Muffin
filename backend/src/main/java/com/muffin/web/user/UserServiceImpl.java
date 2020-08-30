@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService {
                 "초기 자금",
                 user.getUserId()
                 ,10000000));
-
         return returnUser;
     }
 
