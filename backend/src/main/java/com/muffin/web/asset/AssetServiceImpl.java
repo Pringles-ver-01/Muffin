@@ -73,7 +73,7 @@ public class AssetServiceImpl implements AssetService {
         } else {
             vo.setTotalAsset(recent.get(0).getTotalAsset());
             vo.setProfitLoss(recent.get(0).getTotalAsset()-recent.get(1).getTotalAsset());
-            vo.setProfitRatio((double)(vo.getProfitLoss()/recent.get(1).getTotalAsset()));
+            vo.setProfitRatio((double)Math.round((double)(vo.getProfitLoss())/(double)(recent.get(1).getTotalAsset())*100)/100.0);
         }
         return vo;
     }
@@ -104,7 +104,7 @@ public class AssetServiceImpl implements AssetService {
                         csvRecord.get(5),
                         csvRecord.get(6),
                         Long.parseLong(csvRecord.get(7)
-                        ),Integer.parseInt(csvRecord.get(3))));
+                        ),Integer.parseInt(csvRecord.get(2))));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,9 +158,7 @@ public class AssetServiceImpl implements AssetService {
     public List<TransactionLogVO> getOnesHoldings(Long userId) {
         List<TransactionLogVO> result = new ArrayList<>();
         List<Asset> list = repository.findOnesAllAsset(userId);
-        System.out.println("list : " + list);
         TransactionLogVO vo = null;
-
         for (Asset l : list) {
             if (l.getShareCount() > 0) {
                 vo = new TransactionLogVO();
@@ -243,7 +241,8 @@ public class AssetServiceImpl implements AssetService {
         asset.setTotalAsset(newAmount);
         asset.setTotalProfit(totalProfit);
         asset.setTotalProfitRatio(totalProfitRatio);
-        asset.setStock(stockRepository.findByStockName(invoice.getStockName()).get());
+        System.out.println(stockRepository.findByStockName(invoice.getStockName()));
+        asset.setStock(stockRepository.findByStockName(invoice.getStockName()));
         asset.setUser(userRepository.findById(invoice.getUserId()).get());
         transactionRepository.save(new Transaction(invoice.getStockName(), buyAmount, invoice.getTransactionDate(), invoice.getTransactionType(),
                 invoice.getUserId(), newAmount));

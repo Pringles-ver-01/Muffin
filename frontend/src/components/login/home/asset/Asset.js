@@ -10,23 +10,6 @@ const Asset = () => {
   const [plusOrMinus, setPlusOrMinus] = useState("blue");
   let today = new Date();
 
-  /*  useEffect(() => {
-    axios
-      .get(
-        `http://localhost:8080/assets/holdingCount/${
-          JSON.parse(sessionStorage.getItem("logined_user")).userId
-        }`
-      )
-      .then((response) => {
-        console.log(`야 이게 뭐냐 ${response.data.holdingCount[0]}`);
-        setAsset(response.data.holdingCount[0]);
-        console.log(`2 : ${asset}`);
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }, []); */
-
   useEffect(() => {
     axios
       .get(
@@ -66,8 +49,9 @@ const Asset = () => {
           <span className="won, my_asset_title">평가 수익률 : </span>
           <span className="won, my_money_profit">
             <span className={plusOrMinus}>
-              {String(userProfitRatio).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} %
+              {String(userProfitRatio).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </span>
+            %
           </span>
         </div>
 
@@ -75,8 +59,9 @@ const Asset = () => {
           <span className="won, my_asset_title">평가 손익 : </span>
           <span className="won, my_money_profit">
             <span className={plusOrMinus}>
-              {String(userProfit).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원
+              {String(userProfit).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </span>
+            원
           </span>
         </div>
       </div>
