@@ -21,7 +21,7 @@ const Recent_News = () => {
 
   return (
     <>
-      <div className="recommendation_container">
+      <div className="recent_container">
         {newsList.map((item) => (
           <div key={item.newsId}>
             <div>
