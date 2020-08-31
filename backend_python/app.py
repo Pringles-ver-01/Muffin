@@ -21,7 +21,6 @@ def recommend_stock(period, propensity):
 
 @app.route('/cloud', methods=['GET'])
 def create_wordcloud_using_csv():
-    print('되나')
     C = Read_csv_create_wordcloud()
     result = C.read()
     print(result)
