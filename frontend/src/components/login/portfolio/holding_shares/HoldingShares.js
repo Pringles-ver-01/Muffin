@@ -21,7 +21,7 @@ const HoldingShares = ({ asset }) => {
                   (ownedAsset, i) =>
                     ownedAsset.stockName && (
                       <div
-                        className="flex flex-row items-center justify-between"
+                        className="flex flex-row items-center justify-between stock_card"
                         key={i}
                       >
                         <div className="flex flex-col">

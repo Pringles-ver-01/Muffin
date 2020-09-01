@@ -184,8 +184,8 @@ class Recommendation_Stock_Model:
         for ticker in ticker_list:
             date = datetime.today().strftime('%Y-%m-%d')
             df = fdr.DataReader(ticker, date)
-            prev = fdr.DataReader(ticker, date).iloc[0, 0]
-            now = fdr.DataReader(ticker, date).iloc[0, 3]
+            prev = df.iloc[0, 0]
+            now = df.iloc[0, 3]
             now_price.append(str(now))
             change_won = ''
             if prev - now > 0:

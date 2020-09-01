@@ -16,7 +16,7 @@
 
 .btn-container {
   flex: 1;
-  padding-top: 3%;
+  padding-top: 1%;
   padding-right: 1%;
   display: flex;
   justify-content: flex-end;
@@ -54,7 +54,7 @@
 
 .search_nav_input {
   margin-left: 5px;
-  width: 380%;
+  width: 500px;
   height: 35px;
   font-size: 12px;
 }
@@ -62,7 +62,7 @@
 .search_nav_button {
   position: absolute;
   top: 0.2px;
-  left: 370%;
+  left: 510px;
   margin-left: 4px;
   text-align: center;
   background-color: var(--greenish-teal);
