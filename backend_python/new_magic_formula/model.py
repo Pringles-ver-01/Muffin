@@ -180,6 +180,7 @@ class Recommendation_Stock_Model:
         now_price = []
         change = []
         change_ratio = []
+        symbol = []
 
         for ticker in ticker_list:
             date = datetime.today().strftime('%Y-%m-%d')
@@ -197,6 +198,6 @@ class Recommendation_Stock_Model:
             change.append(change_won)
             change_ratio.append('{}%'.format(round((prev - now) / prev * 100, 2)))
 
-        result = {'종목명': recommendation_dic['종목명'], '현재가': now_price, '전일대비': change, '전일비': change_ratio}
+        result = {'종목명': recommendation_dic['종목명'], '현재가': now_price, '전일대비': change, '전일비': change_ratio, '종목코드': ticker_list}
 
         return result
