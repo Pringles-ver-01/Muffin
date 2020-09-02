@@ -58,8 +58,8 @@
 4. ##### 4주차 (2020.08.17 ~ 2020.08.23) 
 
     * 분담 기능 구현 및 테스트, 유지보수
-   
-5. ##### 5주차 (2020.02.24 ~ 2020.02.28) 
+  
+5. ##### 5주차 (2020.08.24 ~ 2020.8.28) 
    
    * 분담 기능 구현 마무리
    * 테스트 및 유지보수, 발표 준비
@@ -72,7 +72,7 @@
 
 ### BackEnd
 - Web Server: Java, Python
-- Database: H2, SessionStorage
+- Database: H2, Jpa, SessionStorage
 
 ### FrameWork 
 - Java: Spring Boot
