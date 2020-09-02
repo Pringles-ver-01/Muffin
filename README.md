@@ -72,7 +72,7 @@
 
 ### BackEnd
 - Web Server: Java, Python
-- Database: H2, SessionStorage
+- Database: H2, Jpa, SessionStorage
 
 ### FrameWork 
 - Java: Spring Boot
